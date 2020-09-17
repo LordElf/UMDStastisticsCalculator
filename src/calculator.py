@@ -40,7 +40,8 @@ print('p hat')
 z = 1.645
 n = 149
 pHat = 8 / n
-pBar = (pHat + z**2 / n) / (1 + z**2 / n)
+pBar = (pHat + z**2 / (2 * n)) / (1 + z**2 / n)
 print('pHat: ', pHat, 'pBar', pBar)
-CIRange = (z * sqrt(pHat * (1 - pHat) / 2 + z**2/(4 * n**2)) / (1 + z**2/n))
+CIRange = z * sqrt(pHat * (1 - pHat) / n + z**2/(4 * n**2)) / (1 + z**2/n)
+print(CIRange)
 print('CI : ', pBar - CIRange, pBar + CIRange)
