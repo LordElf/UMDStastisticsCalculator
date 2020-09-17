@@ -34,3 +34,13 @@ x2 = 16.791
 ciL = 2 * sum / x2
 ciS = 2 * sum / x1
 print('CI: (', ciS, ciL, ')')
+
+# p hat
+print('p hat')
+z = 1.645
+n = 149
+pHat = 8 / n
+pBar = (pHat + z**2 / n) / (1 + z**2 / n)
+print('pHat: ', pHat, 'pBar', pBar)
+CIRange = (z * sqrt(pHat * (1 - pHat) / 2 + z**2/(4 * n**2)) / (1 + z**2/n))
+print('CI : ', pBar - CIRange, pBar + CIRange)
