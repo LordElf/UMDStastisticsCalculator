@@ -60,8 +60,8 @@ def run_bino():
     x2 = input("smaller than:\n")
     x2 = int(x2)
     phi_d = sqrt(n*p*(1-p))
-    phi1 = (x1+0.5 - n*p) / phi_d
-    phi2 = (x2 + .5 -n*p) / phi_d
+    phi1 = (x1 - 0.5 - n*p) / phi_d
+    phi2 = (x2 + 0.5 -n*p) / phi_d
     phi1 = input(f"find phi({phi1})\n")
     phi1 = float(phi1)
     phi2 = input(f"find phi({phi2})\n")
