@@ -1,7 +1,7 @@
 import numpy as np
 from math import *
 
-data = "2.0	    1.1	    6.0	    1.6	5.4	0.4	    1.0	    5.3 15.8	0.7	4.8	0.9	    12.1	    5.3	0.6	" 
+data = '415 420 422 423 425 429 432 434 437 439 445 446 448 451 459 463 464'
 data = data.replace(',', ' ')
 data = data.split()
 print(data)
@@ -12,20 +12,30 @@ data = np.sort(data)
 sum = np.sum(data)
 print(data)
 print('sum: ', sum)
-print(len(data))
+n = len(data)
+print('n = ', n)
 mean = np.mean(data)
-stDev = np.std(data)
+# t ditribution ddof = 1
+stDev = np.std(data,ddof=0)
 print('mean', mean)
 print('stDev: ', stDev)
 
 # normal distribution
 print('normal')
-z = 1.96
-range = z * stDev / sqrt(len(data))
+# t alpha/2, n - 1
+stDev = 3.1
+mean = 24.0
+n = 11
+z = 2.228 
+range = z * stDev / sqrt(n)
 ciL = mean + range
 ciS = mean - range
 print('range: ', range)
 print('CI: (', ciS, ciL, ')')
+
+# prediction interval
+range = z * stDev * sqrt(1+1/n)
+print('prediction interval: (', mean - range, mean + range)
 
 # chi disctribution
 print('chi')
