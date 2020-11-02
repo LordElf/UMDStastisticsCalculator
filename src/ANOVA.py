@@ -2,9 +2,10 @@ import numpy as np
 from math import *
 
 data = []
-data.append('.95  .86  .71  .72  .74')
-data.append('.71  .85  .62  .72  .64')
-data.append('.69  .68  .51  .73  .44')
+data.append('5.3	4.6	5.9	6.2	6.6	5.7')
+data.append('6.6	8.1	6.2	7.4	5.8	5.5')
+data.append('5.9	4.8	6.4	4.9	5.9	5.1')
+data.append('8.2	6.1	7.8	7.1	5.5	7.2')
 
 for i in range(0, len(data)):
     data[i] = data[i].replace(',', ' ')
@@ -22,7 +23,7 @@ Sum = np.sum(data, axis=1)
 u = np.mean(data, axis=1)
 xdda = np.mean(data)
 SST = np.sum((data - xdda)**2)
-SSTr = np.sum((u - xdda)**2)
+SSTr = np.sum((u - xdda)**2) * J
 SSE = 0
 for i in range(0,len(data)):
     SSE += np.sum((data[i] - u[i])**2)
