@@ -2,33 +2,48 @@ import numpy as np
 from math import *
 
 data = []
-data.append('5.3	4.6	5.9	6.2	6.6	5.7')
-data.append('6.6	8.1	6.2	7.4	5.8	5.5')
-data.append('5.9	4.8	6.4	4.9	5.9	5.1')
-data.append('8.2	6.1	7.8	7.1	5.5	7.2')
+data.append('10 15 8 12 15')
+data.append('14 18 21 15')
+data.append('17 16 14 15 17 15 18')
 
 for i in range(0, len(data)):
     data[i] = data[i].replace(',', ' ')
     data[i] = data[i].split()
     data[i] = np.array(data[i]).astype(np.float)
 
+I = len(data)
+J = len(data[0])
+n = 0
+for i in range(0, len(data)):
+    n += len(data[i])
+
 # Source of variation   |   df      |   Sum of Squares  |   Mean Square     |   f
 # Treatment             |   I-1     |   SSTr            |   MSTr            |   MSTr/MSE
 #   Error               |   I(j-1)  |   SSE             |   MSE
 #   Total               |   IJ-1    |   SST
-I = len(data)
-J = len(data[0])
 print(I, J)
-Sum = np.sum(data, axis=1) 
-u = np.mean(data, axis=1)
-xdda = np.mean(data)
-SST = np.sum((data - xdda)**2)
-SSTr = np.sum((u - xdda)**2) * J
+u = []
+for i in range(0, len(data)):
+    u.append(sum(data[i])/len(data[i]))
+print(u)
+xdda = sum(u)/len(u) 
+print(xdda)
+#SST = np.sum((data - xdda)**2)
+SST = 0
+for i in range(0, I):
+    SST += sum((data[i] - xdda)**2)
+#SSTr = np.sum((u - xdda)**2) * J
+SSTr = 0
+for i in range(0, I):
+    for j in range(0, len(data[i])):
+        SSTr += (u[i] - xdda)**2 
 SSE = 0
+# or sum(s**2)/I
 for i in range(0,len(data)):
-    SSE += np.sum((data[i] - u[i])**2)
+    SSE += sum((data[i] - u[i])**2)
 MSTr = SSTr / (I - 1)
-MSE = SSE / (I * (J - 1))
+# n = Signma{Ji}
+MSE = SSE / (n-I)
 F = MSTr/MSE
 SSE = round(SSE, 4)
 SST = round(SST, 4)
@@ -37,8 +52,8 @@ MSTr = round(MSTr, 4)
 MSE = round(MSE, 4)
 F = round(F, 4)
 print(data)
-print(u)
-print(f"Source of variation   |   df      |   Sum of Squares  |   Mean Square     |   f \nTreatment             |   {I-1}       |   {SSTr}          |   {MSTr}          |   {F}\n  Error               |   {I * (J-1)}      |   {SSE}          |   {MSE}\n  Total               |   {I*J-1}      |   {SST}")
-Q = 3.77
+print(f"Source of variation   |   df      |   Sum of Squares  |   Mean Square     |   f \nTreatment             |   {I-1}       |   {SSTr}          |   {MSTr}          |   {F}\n  Error               |   {n}      |   {SSE}          |   {MSE}\n  Total               |   {n-1}      |   {SST}")
+Q = 3.65 
 w = round(Q * sqrt(MSE / J), 4)
 print("w ", w)
+print(u)
